@@ -4,7 +4,7 @@ Looking to enhance your control and precision on Razer Tartarus V2/Pro left-hand
 
 ## Getting Started
 
-This mod requires some hands-on assembly. We'll provide the necessary build files, but you'll need to order and assemble the PCB yourself using the included GERBER files.
+This mod requires some hands-on assembly. We'll provide the necessary build files, but you'll need to order and assemble the PCB yourself using the included GERBER, schematics, and Draftsman files.
 
 The project utilizes an Atmel SAMD21E18 microcontroller (MCU) to connect the joystick to your computer. To program the MCU with the bootloader, you'll need an SWD programmer. The Adafruit Trinket M0 bootloader is recommended for this purpose, allowing you to easily configure the PCB as a custom Arduino board.
 
