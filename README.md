@@ -8,7 +8,7 @@ This mod requires some hands-on assembly. We'll provide the necessary build file
 
 The project utilizes an Atmel SAMD21E18 microcontroller (MCU) to connect the joystick to your computer. To program the MCU with the bootloader, you'll need an SWD programmer. The Adafruit Trinket M0 bootloader is recommended for this purpose, allowing you to easily configure the PCB as a custom Arduino board.
 
-**We strongly recommend utilizing solder paste stencils (available as .GTP and .GBP GERBER files) for this project.** Soldering the small SMD components can be challenging for beginners. Recommended stencil manufacturers can be found in the [Resources](##Resources) section.
+**We strongly recommend utilizing solder paste stencils (available as .GTP and .GBP GERBER files) for this project.** Soldering the small SMD components can be challenging for beginners. Recommended stencil manufacturers can be found in the [Resources](## Resources) section.
 
 ## Planned Changes
 
