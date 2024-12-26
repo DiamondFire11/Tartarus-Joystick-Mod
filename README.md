@@ -29,7 +29,7 @@ For uploading custom code, we recommend using an IDE with PlatformIO installed. 
 
 ## A Note on Uploading
 
-In some instances, the SAM-BA programming software might encounter issues writing all firmware blocks to the MCU. This can happen if both the USB data pins (used for serial communication) and the programming interface try to access the device simultaneously, causing the MCU to crash. If this occurs, simply double-press the reset button to force a reboot and enter bootloader mode. Then, retry uploading the code.
+In some instances, the SAM-BA programming software might encounter issues writing all firmware blocks to the MCU. This can happen if the SERCOM and programming interface try to access the USB controller simultaneously, which causes the MCU to crash. If this occurs, simply double-press the reset button to force a reboot and enter bootloader mode. Then, retry uploading the code.
 
 ## Important Reminders
 
