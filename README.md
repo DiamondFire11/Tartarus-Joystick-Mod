@@ -32,7 +32,6 @@ In some instances, the SAM-BA programming software might encounter issues writin
 
 We welcome contributions to this project! If you have significant hardware modifications in mind, please create an issue first to discuss the proposed changes. Additionally, remember to update any relevant software tests along with your contributions.
 
-##Resources
 ## Resources
 #### Hardware
 [Board Manufacturing - PCBWay](https://www.pcbway.com)
