@@ -1,0 +1,20 @@
+,Line #,Name,Description,Designator,Revision ID,Revision State,Revision Status,Quantity,Manufacturer 1,Manufacturer Part Number 1,Manufacturer Lifecycle 1,Supplier 1,Supplier Part Number 1,Supplier Unit Price 1,Supplier Subtotal 1
+,,GRM155Z71A105KE01D,"Ceramic Capacitor, Multilayer, Ceramic, 10V, 10% +Tol, 10% -Tol, X7R, 15% TC, 1uF, Surface Mount, 0402","C1, C4, C5, C7",CMP-001-00092-1,Draft,Up to date,4,Murata,GRM155Z71A105KE01D,Volume Production,Digikey,490-GRM155Z71A105KE01DCT-ND,0.022,0.22
+,,04025C104KAT4A,"Ceramic Capacitor, Multilayer, Ceramic, 50V, 10% +Tol, 10% -Tol, X7R, 15% TC, 0.1uF, Surface Mount, 0402","C2, C3",CMP-001-00090-1,Draft,Up to date,2,Kyocera AVX,04025C104KAT4A,Unknown,Mouser,581-04025C104KAT4A,0.1,0.2
+,,GRM155R61A106ME11J,"Ceramic Capacitor, Multilayer, Ceramic, 10V, 20% +Tol, 20% -Tol, X5R, 15% TC, 10uF, Surface Mount, 0402",C6,CMP-001-00091-1,Draft,Up to date,1,Murata,GRM155R61A106ME11J,Volume Production,Mouser,81-GRM155R61A106ME1J,0.11,0.11
+,,LTST-C190GKT,"LED Uni-Color Green, 100 mW, 30 mA, -55 to 85 degC, 2-Pin SMD, RoHS, Tape and Reel","DS1, DS2, DS3",CMP-007-00022-2,Draft,Up to date,3,Vishay Lite-On,LTST-C190GKT,Volume Production,Future Electronics,3106685,0.176,0.528
+,,USB4105-GF-A,Conn USB 2.0 Type C RCP 24 POS 0.3mm/0.5mm Solder RA SMD 24 Terminal 1 Port T/R,J1,CMP-002-00095-3,Draft,Out of date,1,Global Connector Technology,USB4105-GF-A,Volume Production,Mouser,640-USB4105-GF-A,0.84,0.84
+,,GRPB052VWVN-RC,Connector Header Through Hole 10 position 0.050 (1.27mm),J2,CMP-002-00094-2,Draft,Up to date,1,,,,,,,
+,,100KR2F,100K 0.063W 1% 0402 (1005 Metric)  SMD,R1,CMP-009-00064-2,Draft,Up to date,1,,,,,,,
+,,MCS04020C5101FE000,"Fixed Resistor, Thin Film, 0.063W, 5100ohm, 50V, 1% +/-Tol, 50ppm/Cel, Surface Mount, 0402","R2, R4, R5",CMP-009-00205-1,Draft,Up to date,3,Vishay BCcomponents,MCS04020C5101FE000,Volume Production,Mouser,594-MCS04020C5101FE0,0.1,0.3
+,,MCS04020C2202FE000,"Fixed Resistor, Thin Film, 0.063W, 22000ohm, 50V, 1% +/-Tol, 50ppm/Cel, Surface Mount, 0402",R3,CMP-009-00206-1,Draft,Up to date,1,Vishay BCcomponents,MCS04020C2202FE000,Volume Production,Mouser,594-MCS04020C2202FE0,0.1,0.1
+,,ERJ-2RKF1430X,"Fixed Resistor, Metal Glaze/thick Film, 0.1W, 143ohm, 50V, 1% +/-Tol, 100ppm/Cel, Surface Mount, 0402",R6,CMP-009-00208-1,Draft,Up to date,1,Panasonic,ERJ-2RKF1430X,Volume Production,Farnell,2302542,0.01505,0.15052
+,,CRCW040259R0FKED,"Fixed Resistor, Metal Glaze/thick Film, 0.063W, 59ohm, 50V, 1% +/-Tol, 100ppm/Cel, Surface Mount, 0402","R7, R8",CMP-009-00207-1,Draft,Up to date,2,Vishay,CRCW040259R0FKED,Volume Production,Mouser,71-CRCW0402-59-E3,0.017,0.17
+,,TL3365AF180QG,Tactile Switch SPST-NO Top Actuated Surface Mount,SW1,CMP-011-00019-2,Draft,Up to date,1,,,,,,,
+,,ATSAMD21E18A-MU,"RISC Microcontroller, 32-Bit, FLASH, CORTEX-M0 CPU, 48MHz, CMOS",U1,CMP-020-00023-1,Draft,Up to date,1,Microchip,ATSAMD21E18A-MU,Volume Production,Mouser,556-ATSAMD21E18A-MU,3.87,3.87
+,,NCP718BSN330T1G,"Fixed Positive LDO Regulator, 3.3V, 440V Dropout, PDSO5",U2,CMP-019-00058-1,Draft,Up to date,1,ON Semiconductor,NCP718BSN330T1G,Volume Production,Arrow Electronics,NCP718BSN330T1G,0.6312,0.6312
+,,SN74AUP1T14DCKR,"Inverter, AUP/ULP/V Series, 1-Func, 1-Input, CMOS, PDSO5",U3,CMP-016-00010-1,Draft,Up to date,1,Texas Instruments,SN74AUP1T14DCKR,Volume Production,Digikey,296-27392-1-ND,0.24,0.24
+,,THB001P,"Joystick, 2 - Axis Analog (Resistive) Output",U4,CMP-062-000000-2,Draft,Up to date,1,,,,,,,
+,,CDBQR54,"Rectifier Diode, Schottky, 1 Phase, 1 Element, 0.2A, 30V V(RRM), Silicon",D1,CMP-004-00041-1,Draft,Up to date,1,Comchip,CDBQR54-HF,Volume Production,Arrow Electronics,CDBQR54-HF,0.0024,0.0024
+,,CPDQ5V0,18.6V Clamp 9.4A (8/20Âµs) Ipp Tvs Diode Surface Mount 0402/SOD-923F,"D2, D3, D4",CMP-004-00042-2,Draft,Up to date,3,,,,,,,
+,,ECMF02-2AMX6,"Data Line Filter, 2 Function(s), 6 Pin(s), Plastic",FL1,CMP-00030-00005-1,Draft,Up to date,1,STMicroelectronics,ECMF02-2AMX6,Volume Production,Newark,98Y2152,0.277,0.277
