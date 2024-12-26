@@ -2,6 +2,14 @@
 
 Looking to enhance your control and precision on Razer Tartarus V2/Pro left-handed keyboards? This DIY project offers a custom PCB that replaces the D-pad with a responsive joystick, built around the powerful ARM Cortex-M0 (Atmel SAMD) microcontroller.
 
+## Features
+
+- **Small compact design:** The 22mm by 30mm footprint fits within the footprint existing DIY joystick mods
+- **USB 2.0 Type-C connector:** Given the prevalence of USB Type-C the board comes equipped to take advantage of spare cables
+- **Hardware button debouncing:** No need to waste MCU clock cycles while waiting for the button to settle. A two stage inverting filter with hysteresis ensures a clean DC signal at the input pin.
+- **Atmel SAMD21:** The same MCU used on the Arduino Zero and many Adafruit dev-boards. Allows for ease of software modification.
+- And much more...
+
 ## Getting Started
 
 This mod requires some hands-on assembly. We'll provide the necessary build files, but you'll need to order and assemble the PCB yourself using the included GERBER, schematics, and Draftsman files.
