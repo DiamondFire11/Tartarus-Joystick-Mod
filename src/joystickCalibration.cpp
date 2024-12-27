@@ -17,98 +17,97 @@ void TartarusJoystick::calibrate() {
     double_t mean, variance;
 
     // Remove old calibration settings
-    this->_settings.minPos = {512, 512};
-    this->_settings.maxPos = {512, 512};
+    this->m_settings.minPos = {512, 512};
+    this->m_settings.maxPos = {512, 512};
 
-    // Calibrate -X
     time = millis();
     Serial.println("Beginning joystick calibration");
     Serial.println("Move joystick to -X position");
 
     digitalWrite(LED_BUILTIN, HIGH);
-    while((millis() - time) < 3000) {} // Wait 5s for user to move joystick
+    while((millis() - time) < 3000) {} // Wait 3s for user to move joystick
     digitalWrite(LED_BUILTIN, LOW);
 
     // Calibrate X minimum
-    TartarusJoystick::_sampleXData(readings);
-    mean = TartarusJoystick::_calculateMean(readings);
-    variance = TartarusJoystick::_calculateVariance(mean, readings);
-    this->_settings.minPos.x = TartarusJoystick::_findEffectiveRange(mean, variance, false, readings);
+    TartarusJoystick::m_sampleXData(readings);
+    mean = TartarusJoystick::m_calculateMean(readings);
+    variance = TartarusJoystick::m_calculateVariance(mean, readings);
+    this->m_settings.minPos.x = TartarusJoystick::m_findEffectiveRange(mean, variance, false, readings);
 
     time = millis();
     Serial.println("Move joystick to +X position");
     digitalWrite(LED_BUILTIN, HIGH);
-    while((millis() - time) < 3000) {} // Wait 5s for user to move joystick
+    while((millis() - time) < 3000) {} // Wait 3s for user to move joystick
     digitalWrite(LED_BUILTIN, LOW);
 
     // Calibrate X maximum
-    TartarusJoystick::_sampleXData(readings);
-    mean = TartarusJoystick::_calculateMean(readings);
-    variance = TartarusJoystick::_calculateVariance(mean, readings);
-    this->_settings.maxPos.x = TartarusJoystick::_findEffectiveRange(mean, variance, true, readings);
+    TartarusJoystick::m_sampleXData(readings);
+    mean = TartarusJoystick::m_calculateMean(readings);
+    variance = TartarusJoystick::m_calculateVariance(mean, readings);
+    this->m_settings.maxPos.x = TartarusJoystick::m_findEffectiveRange(mean, variance, true, readings);
 
     time = millis();
     Serial.println("Move joystick to -Y position");
     digitalWrite(LED_BUILTIN, HIGH);
-    while((millis() - time) < 3000) {} // Wait 5s for user to move joystick
+    while((millis() - time) < 3000) {} // Wait 3s for user to move joystick
     digitalWrite(LED_BUILTIN, LOW);
 
     // Calibrate Y minimum
-    TartarusJoystick::_sampleYData(readings);
-    mean = TartarusJoystick::_calculateMean(readings);
-    variance = TartarusJoystick::_calculateVariance(mean, readings);
-    this->_settings.minPos.y = TartarusJoystick::_findEffectiveRange(mean, variance, false, readings);
+    TartarusJoystick::m_sampleYData(readings);
+    mean = TartarusJoystick::m_calculateMean(readings);
+    variance = TartarusJoystick::m_calculateVariance(mean, readings);
+    this->m_settings.minPos.y = TartarusJoystick::m_findEffectiveRange(mean, variance, false, readings);
 
     time = millis();
     Serial.println("Move joystick to +Y position");
     digitalWrite(LED_BUILTIN, HIGH);
-    while((millis() - time) < 3000) {} // Wait 5s for user to move joystick
+    while((millis() - time) < 3000) {} // Wait 3s for user to move joystick
     digitalWrite(LED_BUILTIN, LOW);
 
     // Calibrate Y maximum
-    TartarusJoystick::_sampleYData(readings);
-    mean = TartarusJoystick::_calculateMean(readings);
-    variance = TartarusJoystick::_calculateVariance(mean, readings);
-    this->_settings.maxPos.y = TartarusJoystick::_findEffectiveRange(mean, variance, true, readings);
+    TartarusJoystick::m_sampleYData(readings);
+    mean = TartarusJoystick::m_calculateMean(readings);
+    variance = TartarusJoystick::m_calculateVariance(mean, readings);
+    this->m_settings.maxPos.y = TartarusJoystick::m_findEffectiveRange(mean, variance, true, readings);
 
     time = millis();
     Serial.println("Remove finger from joystick while origin is calibrated");
     digitalWrite(LED_BUILTIN, HIGH);
-    while((millis() - time) < 3000) {} // Wait 5s for user to move joystick
+    while((millis() - time) < 3000) {} // Wait 3s for user to move joystick
     digitalWrite(LED_BUILTIN, LOW);
 
     // Calibrate origin
-    TartarusJoystick::_sampleXData(readings);
-    this->_settings.origin.x = (int16_t) TartarusJoystick::_calculateMean(readings);
+    TartarusJoystick::m_sampleXData(readings);
+    this->m_settings.origin.x = (int16_t) TartarusJoystick::m_calculateMean(readings);
 
-    TartarusJoystick::_sampleYData(readings);
-    this->_settings.origin.y = (int16_t) TartarusJoystick::_calculateMean(readings);
+    TartarusJoystick::m_sampleYData(readings);
+    this->m_settings.origin.y = (int16_t) TartarusJoystick::m_calculateMean(readings);
 
     Serial.print("X Min: ");
-    Serial.println(this->_settings.minPos.x);
+    Serial.println(this->m_settings.minPos.x);
     Serial.print("X Max: ");
-    Serial.println(this->_settings.maxPos.x);
+    Serial.println(this->m_settings.maxPos.x);
 
     Serial.print("Y Min: ");
-    Serial.println(this->_settings.minPos.y);
+    Serial.println(this->m_settings.minPos.y);
     Serial.print("Y Max: ");
-    Serial.println(this->_settings.maxPos.y);
+    Serial.println(this->m_settings.maxPos.y);
 
     Serial.print("Origin: (");
-    Serial.print(this->_settings.origin.x);
+    Serial.print(this->m_settings.origin.x);
     Serial.print(", ");
-    Serial.print(this->_settings.origin.y);
+    Serial.print(this->m_settings.origin.y);
     Serial.println(")");
 }
 
-void TartarusJoystick::_sampleXData(uint16_t *samplesArr) {
+void TartarusJoystick::m_sampleXData(uint16_t * samplesArr) {
     for(auto i = 0; i < CALIBRATION_SAMPLES; ++i){
         samplesArr[i] = analogRead(A4);
         delay(10);
     }
 }
 
-void TartarusJoystick::_sampleYData(uint16_t *samplesArr) {
+void TartarusJoystick::m_sampleYData(uint16_t * samplesArr) {
     for(auto i = 0; i < CALIBRATION_SAMPLES; ++i){
         samplesArr[i] = analogRead(A3);
         delay(10);
@@ -117,7 +116,7 @@ void TartarusJoystick::_sampleYData(uint16_t *samplesArr) {
 
 // The mean describes the value that you can expect from a distribution
 // This value is important for calculating variance
-double_t TartarusJoystick::_calculateMean(const uint16_t * samplesArr) {
+double_t TartarusJoystick::m_calculateMean(const uint16_t * samplesArr) {
     uint32_t sum = 0;
     for(auto i = 0; i < CALIBRATION_SAMPLES; ++i){
         sum += samplesArr[i];
@@ -127,7 +126,7 @@ double_t TartarusJoystick::_calculateMean(const uint16_t * samplesArr) {
 
 // Variance describes how far a reading deviates from the calculated mean
 // Will be used to filter outliers in the calibration
-double_t TartarusJoystick::_calculateVariance(const double_t & mean, const uint16_t * samplesArr) {
+double_t TartarusJoystick::m_calculateVariance(const double_t & mean, const uint16_t * samplesArr) {
     double_t variance = 0;
     for(auto i = 0; i < CALIBRATION_SAMPLES; ++i){
         variance += pow(((double_t) samplesArr[i] - mean), 2);
@@ -138,7 +137,7 @@ double_t TartarusJoystick::_calculateVariance(const double_t & mean, const uint1
 // The bool (opt) parameter determines if you will be finding the min or max.
 // opt = false  -   Find the minimum in the set
 // opt = true   -   Find the maximum in the set
-int16_t TartarusJoystick::_findEffectiveRange(const double_t & mean, const double_t & variance,
+int16_t TartarusJoystick::m_findEffectiveRange(const double_t & mean, const double_t & variance,
                                               const bool opt, const uint16_t * samplesArr) {
     double_t outlierThreshold = sqrt(variance) * 2; // Two times the standard deviation
     int16_t min = 512;
