@@ -52,36 +52,44 @@ enum ANALOG_VALUES{
     JOYSTICK_MAXIMUM = 100,
     CALIBRATION_SAMPLES = 100};
 
+typedef struct KeySettings {
+    double_t rangeMin;
+    double_t rangeMax;
+    JoystickKeys key;
+    bool flag;
+} KeySettings;
+
 class TartarusJoystick {
 public:
     TartarusJoystick();
 
     //void publishJoystick() const;
-    void publishKeystrokes() const;
+    void publishKeystrokes();
     void printToSerial() const;
     void readJoystickData();
 
     void calibrate();
 
 private:
-    JoystickData _data{};
-    JoystickSettings _settings{};
+    JoystickData m_data{};
+    JoystickSettings m_settings{};
+    KeySettings m_keys[5];
 
     // Calibration helpers
-    static void _sampleXData(uint16_t *);
-    static void _sampleYData(uint16_t *);
-    static double_t _calculateMean(const uint16_t *);
-    static double_t _calculateVariance(const double_t &, const uint16_t *);
-    static int16_t _findEffectiveRange(const double_t &, const double_t &, bool, const uint16_t *);
+    static void m_sampleXData(uint16_t *);
+    static void m_sampleYData(uint16_t *);
+    static double_t m_calculateMean(const uint16_t *);
+    static double_t m_calculateVariance(const double_t &, const uint16_t *);
+    static int16_t m_findEffectiveRange(const double_t &, const double_t &, bool, const uint16_t *);
 
     // Smoothing and deadzone helpers
-    void _applyDeadzone(int16_t &, int16_t &) const;
-    void _applySmoothing(int16_t &, int16_t &) const;
+    void m_applyDeadzone(int16_t &, int16_t &) const;
+    void m_applySmoothing(int16_t &, int16_t &) const;
 
     /*
      * Special helper for saving calibration data
      * Be very careful with how many times the joystick is calibrated
      * DO NOT EXCEED 1000 calibrations over lifespan
      */
-    //bool _commitCalibrationToEEPROM();
+    //bool m_commitCalibrationToEEPROM();
 };
