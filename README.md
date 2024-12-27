@@ -1,6 +1,6 @@
 # Introducing the Tartarus Joystick Mod!
 
-Looking to enhance your control and precision on Razer Tartarus V2/Pro left-handed keyboards? This DIY project offers a custom PCB that replaces the D-pad with a responsive joystick, built around the powerful ARM Cortex-M0 (Atmel SAMD) microcontroller.
+Looking to enhance your control and precision on Razer Tartarus V2/Pro left-handed keyboards? This DIY project offers a custom printed circuit board (PCB) that replaces the D-pad with a responsive joystick, built around the powerful ARM Cortex-M0 (Atmel SAMD) microcontroller.
 
 ## Features
 
