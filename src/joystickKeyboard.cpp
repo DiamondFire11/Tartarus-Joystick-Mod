@@ -4,76 +4,64 @@
 
 #include "includes/TartarusJoystick.h"
 
-void TartarusJoystick::publishKeystrokes() const {
-    double_t angle = atan2(this->_data.position.y, this->_data.position.x) + M_PI; // Range between 0 and 2pi
+void TartarusJoystick::publishKeystrokes() {
+    double_t angle = atan2(this->m_data.position.y, this->m_data.position.x) + M_PI; // Range between 0 and 2pi
 
     // Handle button press
-    if(this->_data.button) {
-        Keyboard.press(JoystickKeys::KEY_BUTTON);
-    } else {
-        Keyboard.release(JoystickKeys::KEY_BUTTON);
-    }
+    if(this->m_data.button){
+        if(!this->m_keys[0].flag) {
+            Keyboard.press(m_keys[0].key);
+            this->m_keys[0].flag = true;
+        }
 
-    // Release direction keys
-    Keyboard.release(JoystickKeys::KEY_UP);
-    Keyboard.release(JoystickKeys::KEY_DOWN);
-    Keyboard.release(JoystickKeys::KEY_LEFT);
-    Keyboard.release(JoystickKeys::KEY_RIGHT);
+    } else {
+        if(this->m_keys[0].flag) {
+            Keyboard.release(m_keys[0].key);
+            this->m_keys[0].flag = false;
+        }
+    }
 
     // If in deadzone release keys and return
-    if(this->_data.position.x == 0 && this->_data.position.y == 0) {
+    if(this->m_data.position.x == 0 && this->m_data.position.y == 0) {
+        Keyboard.release(JoystickKeys::KEY_UP);
+        Keyboard.release(JoystickKeys::KEY_DOWN);
+        Keyboard.release(JoystickKeys::KEY_LEFT);
+        Keyboard.release(JoystickKeys::KEY_RIGHT);
+
+        // Reset key tracking flags
+        this->m_keys[1].flag = false;
+        this->m_keys[2].flag = false;
+        this->m_keys[3].flag = false;
+        this->m_keys[4].flag = false;
         return;
     }
 
-    // 'A' Pressed
-    if((5.89 < angle && angle <= 2*M_PI) || (0 <= angle && angle <= 0.39)) {
-        Keyboard.press(JoystickKeys::KEY_LEFT);
-        return;
+    // Joystick in 'A' region (has to account for coordinate singularity)
+    if((0 <= angle && angle <= this->m_keys[1].rangeMin) || (this->m_keys[1].rangeMax < angle && angle <= 2*M_PI)) {
+        if(!this->m_keys[1].flag) {
+            Keyboard.press(m_keys[1].key);
+            this->m_keys[1].flag = true;
+        }
+
+    } else {
+        if(this->m_keys[1].flag) {
+            Keyboard.release(m_keys[1].key);
+            this->m_keys[1].flag = false;
+        }
     }
 
-    // 'A' 'S' Pressed
-    if(0.39 < angle && angle <= 1.17) {
-        Keyboard.press(JoystickKeys::KEY_LEFT);
-        Keyboard.press(JoystickKeys::KEY_DOWN);
-        return;
-    }
+    for(auto i = 2; i < 5; ++i) {
+        if(this->m_keys[i].rangeMin < angle && angle <= this->m_keys[i].rangeMax) {
+            if(!this->m_keys[i].flag) {
+                Keyboard.press(m_keys[i].key);
+                this->m_keys[i].flag = true;
+            }
 
-    // 'S' Pressed
-    if(1.17 < angle && angle <= 1.96) {
-        Keyboard.press(JoystickKeys::KEY_DOWN);
-        return;
-    }
-
-    // 'S' 'D' Pressed
-    if(1.96 < angle && angle <= 2.74) {
-        Keyboard.press(JoystickKeys::KEY_DOWN);
-        Keyboard.press(JoystickKeys::KEY_RIGHT);
-        return;
-    }
-
-    // 'D' Pressed
-    if(2.74 < angle && angle <= 3.52) {
-        Keyboard.press(JoystickKeys::KEY_RIGHT);
-        return;
-    }
-
-    // 'D' 'W' Pressed
-    if(3.52 < angle && angle <= 4.30) {
-        Keyboard.press(JoystickKeys::KEY_RIGHT);
-        Keyboard.press(JoystickKeys::KEY_UP);
-        return;
-    }
-
-    // 'W' Pressed
-    if(4.30 < angle && angle <= 5.08) {
-        Keyboard.press(JoystickKeys::KEY_UP);
-        return;
-    }
-
-    // 'W' 'A' Pressed
-    if(5.08 < angle && angle <= 5.89) {
-        Keyboard.press(JoystickKeys::KEY_UP);
-        Keyboard.press(JoystickKeys::KEY_LEFT);
-        return;
+        } else {
+            if (this->m_keys[i].flag) {
+                Keyboard.release(m_keys[i].key);
+                this->m_keys[i].flag = false;
+            }
+        }
     }
 }
