@@ -21,22 +21,22 @@ void setup() {
 
     // LED State-Machine setup
     tasks[0].state = LEDStates::LED_INIT;
-    tasks[0].period = 500;
+    tasks[0].period = 500000;
     tasks[0].elapsedTime = 0;
     tasks[0].tickFcn = &ledTick;
 
     // Joystick State-Machine setup
     tasks[1].state = JoystickStates::JOYSTICK_INIT;
-    tasks[1].period = 5;
+    tasks[1].period = 500;
     tasks[1].elapsedTime = 0;
     tasks[1].tickFcn = &joystickTick;
 }
 
 void loop() {
     for (auto & task : tasks) {
-        if ((millis() - task.elapsedTime) >= task.period) {
+        if ((micros() - task.elapsedTime) >= task.period) {
             task.state = task.tickFcn(task.state);
-            task.elapsedTime = millis(); // Last time this task was ran
+            task.elapsedTime = micros(); // Last time this task was ran
         }
     }
 }
