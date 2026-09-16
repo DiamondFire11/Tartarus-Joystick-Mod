@@ -1,58 +1,64 @@
-# Introducing the Tartarus Joystick Mod!
+# Tartarus Analog Joystick Mod | SAMD21 Custom Controller PCB
+[![Version: v1.0](https://img.shields.io/badge/Version-v1.0-blueviolet.svg)](https://github.com/DiamondFire11/Tartarus-Joystick-Mod/releases/tag/v1.0-ES)
+[![License: GPLv3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+[![MCU: SAMD21E18](https://img.shields.io/badge/MCU-Atmel%20SAMD21E18-orange.svg)](https://www.microchip.com/en-us/product/ATSAMD21E18)
+[![CAD: Altium Designer](https://img.shields.io/badge/CAD-Altium%20Designer-brightgreen.svg)](https://www.altium.com/)
+[![Framework: PlatformIO](https://img.shields.io/badge/Framework-PlatformIO-orange.svg)](https://platformio.org/)
+[![Language: C++17](https://img.shields.io/badge/Language-C%2B%2B17-00599C.svg)](https://en.cppreference.com/w/cpp/17)
+[![Interface: USB--HID](https://img.shields.io/badge/Interface-USB--HID-informational.svg)](https://www.usb.org/)
 
-Looking to enhance your control and precision on Razer Tartarus V2/Pro left-handed keyboards? This DIY project offers a custom printed circuit board (PCB) that replaces the D-pad with a responsive joystick, built around the powerful ARM Cortex-M0 (Atmel SAMD) microcontroller.
+An electro-mechanical replacement PCB for Razer Tartarus V2/Pro keypads, replacing digital directional pads with an analog joystick module. Features a custom 4-layer stackup, hardware signal conditioning, non-blocking C++ state machines, and integrated power regulation.
 
-## Features
+---
 
-- **Small compact design:** The 22mm by 30mm footprint fits within the footprint existing DIY joystick mods
-- **USB 2.0 Type-C connector:** Given the prevalence of USB Type-C the board comes equipped to take advantage of spare cables
-- **Hardware button debouncing:** No need to waste MCU clock cycles while waiting for the button to settle. A two stage inverting filter with hysteresis ensures a clean DC signal at the input pin.
-- **Atmel SAMD21:** The same MCU used on the Arduino Zero and many Adafruit dev-boards. Allows for ease of software modification.
-- And much more...
+## 📸 PCB CAD Render
+![PCB Render](https://raw.githubusercontent.com/DiamondFire11/Tartarus-Joystick-Mod/main/images/pcb_render.png)
 
-## Getting Started
+## 🛠 Engineering Highlights & System Architecture
 
-This mod requires some hands-on assembly. We'll provide the necessary build files, but you'll need to order and assemble the PCB yourself using the included GERBER, schematics, and Draftsman files.
+* **4-Layer Controlled Stackup:** Designed in Altium Designer utilizing a compact 22mm x 30mm board footprint. Stackup topology: `Top (Signal/Parts)` $\rightarrow$ `GND Plane (Solid Reference)` $\rightarrow$ `Power Plane (3.3V LDO)` $\rightarrow$ `Bottom (Signal/Traces)` to control return path loop inductance, improve thermal dissipation, and reduce EMI.
+* **Hardware-Level Signal Conditioning:** Integrates a two-stage inverting hardware Schmitt-trigger debouncing circuit paired with a fast-acting Schottky diode pull-down network. Bypasses the resistor on discharge to provide near-zero press latency while maintaining a deterministic ~10 ms RC debouncing filter on switch release.
+* **32-Bit Microcontroller Architecture:** Powered by an ATSAMD21E18 32-bit ARM Cortex-M0+ MCU. Utilizes non-CPU-blocking polling, efficient bit-wise masking, and custom C++ modular firmware running on PlatformIO for low-latency execution.
+* **Signal & Power Integrity:** Native USB 2.0 Type-C interface with dedicated ESD suppression chokes, controlled impedance differential pair routing, onboard LDO regulation, and top-layer component placement.
+---
 
-The project utilizes an Atmel SAMD21E18 microcontroller (MCU) to connect the joystick to your computer. To program the MCU with the bootloader, you'll need an SWD programmer. The Adafruit Trinket M0 bootloader is recommended for this purpose, allowing you to easily configure the PCB as a custom Arduino board.
+## 📐 System Technical Specifications
 
-**We strongly recommend utilizing solder paste stencils (available as .GTP and .GBP GERBER files) for this project.** Soldering the small SMD components can be challenging for beginners. Recommended stencil manufacturers can be found in the [Resources](#resources) section.
+| Parameter | Specification Details                                             |
+| :--- |:------------------------------------------------------------------|
+| **Board Dimensions** | 22mm x 30mm (Fits native Razer keypad cavity)|
+| **Microcontroller** | Microchip/Atmel SAMD21E18 (32-bit ARM Cortex-M0+, 48MHz)|
+| **PCB Stackup** | 4-Layer FR-4 (1.6mm thickness, 1oz Cu outer, solid inner planes)|
+| **Hardware Debounce** | Asymmetric ~10 ms release delay (Schmitt Trigger + Schottky diode)|
+| **Bus Protocols** | USB 2.0 HID Native, SWD Programming Interface, UART Debugging|
+| **Toolchain** | Altium Designer, C++17, PlatformIO / GCC ARM, Atmel-ICE|
+---
 
-## Planned Changes
+## 💻 Firmware Architecture & Flashing
 
-- **EEPROM Integration:** To enhance user experience, we plan to incorporate EEPROM memory for non-volatile storage of calibration settings.
-- **ZIF Connector for Joy-Con Compatibility:** We're exploring the possibility of replacing the included joystick with a ZIF connector, enabling seamless integration with Nintendo Joy-Con sticks.
+The C++ firmware uses modular drivers to maintain low execution time and consistent USB polling rates:
 
-## Uploading Custom Firmware
+```bash
+# Clone repository with PlatformIO configuration
+git clone https://github.com/DiamondFire11/Tartarus-Joystick-Mod.git
+cd Tartarus-Joystick-Mod
 
-For uploading custom code, we recommend using an IDE with PlatformIO installed. The standard Arduino IDE won't work due to the PCB's unique pin layout. Luckily, PlatformIO board and variant files are included in the project repository for your convenience.
+# Build firmware target for SAMD21E18
+pio run -e samd21e18_tartarus
+```
+---
 
-## A Note on Uploading
+## ⚡ Flashing via SWD & Hardware Debugging
+1. Connect an Atmel-ICE or SWD-compatible programmer to the target SWD header pads.
+2. Flash the board configuration using PlatformIO or Atmel Studio.
+3. **Recovery Mode**: If USB SERCOM arbitration triggers a bus fault during firmware execution, double-tap the physical reset pad to force hardware bootloader mode.
+--- 
 
-In some instances, the SAM-BA programming software might encounter issues writing all firmware blocks to the MCU. This can happen if the SERCOM and programming interface try to access the USB controller simultaneously, which causes the MCU to crash. If this occurs, simply double-press the reset button to force a reboot and enter bootloader mode. Then, retry uploading the code.
+## 🚀 Roadmap & Design Revisions
+* [ ] **EEPROM / Flash Emulation**: Non-volatile storage of analog joystick deadband and runtime calibration offsets across power cycles.
+* [ ] **Joy-Con ZIF Interface**: Next board iteration replacing the analog pot with a 0.5mm pitch ZIF flex-connector for Nintendo Switch Joy-Con stick modules.
+---
 
-## Important Reminders
-
-- Please refrain from modifying the PlatformIO variant files, as this can prevent the code from compiling correctly.
-- This project doesn't support the standard Arduino IDE. If you seek support, we'll kindly recommend switching to PlatformIO.
-
-## Join the Community!
-
-We welcome contributions to this project! If you have significant hardware modifications in mind, please create an issue first to discuss the proposed changes. Additionally, remember to update any relevant software tests along with your contributions.
-
-## Resources
-#### Hardware
-[Board Manufacturing - PCBWay](https://www.pcbway.com)
-
-[Components - Mouser](https://www.mouser.com)
-
-[OSH Stencils](https://www.oshstencils.com)
-
-#### Software and Programming
-[SWD Programmer - Atmel ICE](https://www.mouser.com/ProductDetail/Microchip-Technology/ATATMEL-ICE?qs=KLFHFgXTQiDAUrt43H15kQ%3D%3D)
-
-[PlatformIO](https://platformio.org)
-
-## License
-
-This project is licensed under the GPLv3 ([GPL](https://choosealicense.com/licenses/gpl-3.0/)).
+## 📄 License & Hardware Manufacturing Files
+* **Production Files**: Production Gerber (.gbr), N.C. Drill (.drl), Solder Paste Stencils (.gtp/.gbp), and Altium Draftsman assembly drawings are located in the /hardware directory
+* **License**: Distributed under [GPLv3 License](https://github.com/DiamondFire11/Tartarus-Joystick-Mod/blob/main/LICENSE). 
