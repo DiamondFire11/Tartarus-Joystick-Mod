@@ -12,7 +12,7 @@ An electro-mechanical replacement PCB for Razer Tartarus V2/Pro keypads, replaci
 ---
 
 ## 📸 PCB CAD Render
-![PCB Render](https://raw.githubusercontent.com/DiamondFire11/Tartarus-Joystick-Mod/main/images/pcb_render.png)
+![PCB Render](https://github.com/DiamondFire11/Tartarus-Joystick-Mod/blob/main/docs/tartarus-board-view.png)
 
 ## 🛠 Engineering Highlights & System Architecture
 
